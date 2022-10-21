@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Book_Flight</string>
+
+
+    <string-array name="economy">
+        <item>Economy</item>
+        <item>Sanjay</item>
+        <item>Sai</item>
+        <item>ODS</item>
+        <item>HYd</item>
+
+    </string-array>
+</resources>

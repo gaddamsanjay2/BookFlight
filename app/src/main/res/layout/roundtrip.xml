@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/roundtrip">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <CalendarView
+                android:id="@+id/calendarRTid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="2"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.7"
+                    android:layout_marginLeft="30dp"
+                    android:textSize="17sp"
+                    android:textColor="@color/gray"
+                    android:text="Passangers"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="17sp"
+                    android:layout_weight="1"
+                    android:textColor="@color/gray"
+                    android:text="Class"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2">
+                <LinearLayout
+                    android:layout_width="270dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="3"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginLeft="30dp"
+                    android:background="@drawable/curve3"
+                    android:layout_weight="1">
+
+                    <ImageView
+                        android:onClick="decrementRT"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/ic_baseline_remove_circle_outline_24" />
+                    <TextView
+                        android:id="@+id/valueRTid"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:text="0"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:layout_marginLeft="3dp"
+                        android:layout_marginRight="3dp"/>
+                    <ImageView
+                        android:onClick="incrementRT"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/ic_baseline_add_circle_outline_24" />
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@drawable/curve3"
+                    android:orientation="horizontal">
+
+                    <Spinner
+                        android:id="@+id/spinnerRTid"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+
+                </LinearLayout>
+
+
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Flight from"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="30dp"/>
+            <EditText
+                android:id="@+id/from_edt"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:hint="from"
+                android:padding="5dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:background="@drawable/curve3"
+                android:layout_marginTop="10dp"/>
+            <EditText
+                android:id="@+id/to_edt"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:hint="to"
+                android:padding="5dp"
+                android:layout_marginLeft="30dp"
+                android:background="@drawable/curve3"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="10dp"/>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonRT_SAF"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:text="See available flights"
+                android:textAllCaps="false"
+                android:layout_gravity="end"
+                app:cornerRadius="30dp"
+                android:backgroundTint="@color/skyblue"
+                android:layout_margin="10dp"/>
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>
