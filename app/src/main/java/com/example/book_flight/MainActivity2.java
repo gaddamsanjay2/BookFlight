@@ -1,10 +1,9 @@
 package com.example.book_flight;
 
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
-import android.app.DatePickerDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -19,15 +18,23 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.datepicker.MaterialCalendar;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 public class MainActivity2 extends AppCompatActivity {
     LinearLayout l1,l2;
     TextView oneway,roundtrip;
     View v1,v2;
 
-    Calendar calendar;
+    CalendarView calendarView;
+    private MaterialCalendar materialCalendar;
+    private ArrayList<Date> dates;
+    private Date date = new Date();
+    Calendar cal = Calendar.getInstance();
 
     TextView value;
     int Count=0;
@@ -41,7 +48,8 @@ public class MainActivity2 extends AppCompatActivity {
 
     ArrayList<ModelClass> modelClassArrayList;
 
-    TextView from,to;
+    EditText from,to;
+    EditText fromRT,toRt;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,29 +79,76 @@ public class MainActivity2 extends AppCompatActivity {
        from=findViewById(R.id.from_edt);
         to=findViewById(R.id.to_edt);
 
+        fromRT=findViewById(R.id.fromRT_edt);
+        toRt=findViewById(R.id.toRT_edt);
+
         modelClassArrayList=new ArrayList<>();
         CalendarView calendarr = findViewById(R.id.calendarid);
-        //Get yesterday's date
-        calendarr.setMinDate(System.currentTimeMillis() - 1000);
+        calendarr.setSelected(true);
+        calendarr.setDate(calendarr.getDate(),true,true);
+        calendarr.setMinDate(System.currentTimeMillis()-1000);
+
+
+
+
+//        calendarr.setMinDate(System.currentTimeMillis() - 1000);
         //calendar.add(Calendar.DATE, -1);
         //calendar.setTimeInMillis(System.currentTimeMillis() - 1000);
+
+        calendarr.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(@NonNull CalendarView calendarView,
+                                            int dayOfMonth, int month, int year) {
+
+                Toast.makeText(
+                        getApplicationContext(),
+                        dayOfMonth + "/" + month + "/" + year, Toast.LENGTH_LONG).show();
+
+            }
+        });
+
 
 //  Round Trip
 
         CalendarView calendarViewRT=findViewById(R.id.calendarRTid);
-//        calendarViewRT.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
-//
-//            @Override
-//            public void onSelectedDayChange(CalendarView view, int year,
-//                                            int month, int dayOfMonth) {
-//
+        calendarViewRT.setMinDate(System.currentTimeMillis() -1000);
+        calendarr.setSelected(true);
+        calendarr.setDate(calendarr.getDate(),false,true);
+
+//        calendarViewRT.setMaxDate(System.currentTimeMillis() -1000);
+
+//        initializeCalendar();
+
+        calendarViewRT.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+
+            @Override
+            public void onSelectedDayChange(CalendarView view, int year,
+                                            int month, int dayOfMonth) {
+
+
 //                Toast.makeText(
 //                        getApplicationContext(),
 //                        dayOfMonth + "/" + month + "/" + year, Toast.LENGTH_LONG).show();
+
+//                Calendar calendar = Calendar.getInstance();
+//                calendar.set(Calendar.DAY_OF_YEAR, calendar.getActualMaximum(Calendar.DAY_OF_YEAR));
+//                long endofYear = calendar.getTimeInMillis();
+//                calendar = Calendar.getInstance();
+//                calendar.set(Calendar.DATE, calendar.getActualMinimum(Calendar.DATE));
 //
-//            }
+//                long presentDay = calendar.getTimeInMillis();
+//                calendarViewRT.setMaxDate(endofYear);
+//                calendarViewRT.setMinDate(presentDay);
 //
-//        });
+//
+//                String minDateString = new SimpleDateFormat("MM/dd/yyyy").format(new Date(calendarViewRT.getMinDate()));
+//                String maxDateString = new SimpleDateFormat("MM/dd/yyyy").format(new Date(calendarViewRT.getMaxDate()));
+//
+//                Toast.makeText(getApplicationContext(), "MMDDYYYY Min date - " + minDateString + " Max Date is " + maxDateString, Toast.LENGTH_LONG).show();
+
+            }
+
+        });
 
         l1=findViewById(R.id.oneway);
         l2=findViewById(R.id.roundtrip);
@@ -112,6 +167,8 @@ public class MainActivity2 extends AppCompatActivity {
         oneway.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+
 
                 oneway.setTextColor(getResources().getColor(R.color.skyblue));
                 roundtrip.setTextColor(getResources().getColor(R.color.gray));
@@ -150,11 +207,16 @@ public class MainActivity2 extends AppCompatActivity {
                     to.setError("This field required");
                 }else if (from.length()!=0||to.length()!=0){
 
-                    processinsert(from.getText().toString(),to.getText().toString());
 
+
+                    String fromStr=from.getText().toString();
+                    String toStr=to.getText().toString();
 
                     Intent intent=new Intent(MainActivity2.this,MainActivity3.class);
+                    intent.putExtra("ff",fromStr);
+                    intent.putExtra("tt",toStr);
 
+                    processinsert(from.getText().toString(),to.getText().toString());
                     startActivity(intent);
                 }
 
@@ -164,22 +226,31 @@ public class MainActivity2 extends AppCompatActivity {
         seeavailableflights_roundtrip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (fromRT.length()==0){
+                    fromRT.setError("This field required");
+                }else if (toRt.length()==0){
+                    toRt.setError("This field required");
+                }else if (fromRT.length()!=0||toRt.length()!=0){
 
 
+                    String fromStr=fromRT.getText().toString();
+                    String toStr=toRt.getText().toString();
 
+                    Intent intent=new Intent(MainActivity2.this,MainActivity3.class);
+                    intent.putExtra("ff",fromStr);
+                    intent.putExtra("tt",toStr);
 
+                    processinsert(fromRT.getText().toString(),toRt.getText().toString());
 
-//                processinsert(from.getText().toString(),to.getText().toString());
+                    startActivity(intent);
+                }
 
-                Intent intent=new Intent(MainActivity2.this,MainActivity3.class);
-//                intent.putExtra("key","value");
-                startActivity(intent);
             }
         });
 
-
     }
-//ONE WAY
+
+    //ONE WAY
     public void increment(View view){
         Count++;
         value.setText(""+Count);
@@ -208,7 +279,11 @@ public class MainActivity2 extends AppCompatActivity {
         String result=new HelperClass(this).addrecord(fromStr,toStr);
             from.setText("");
             to.setText("");
+
+
     Toast.makeText(this, ""+result, Toast.LENGTH_SHORT).show();
 
     }
+
+
 }

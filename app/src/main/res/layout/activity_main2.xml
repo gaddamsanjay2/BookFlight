@@ -38,7 +38,7 @@
         <ImageView
             android:layout_width="35dp"
             android:layout_height="35dp"
-            android:background="@drawable/ic_baseline_more_vert_24"
+            android:background="@drawable/ic_baseline_more_vert_24_white"
             android:layout_margin="8dp"
             android:layout_gravity="end"/>
 

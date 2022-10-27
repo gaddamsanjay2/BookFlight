@@ -33,6 +33,7 @@ public class AdapterClass extends RecyclerView.Adapter<AdapterClass.ViewHolder> 
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.from.setText(modelClassList.get(position).getFrom());
         holder.to.setText(modelClassList.get(position).getTo());
+
     }
 
     @Override
@@ -42,10 +43,12 @@ public class AdapterClass extends RecyclerView.Adapter<AdapterClass.ViewHolder> 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView from,to;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             from=itemView.findViewById(R.id.from_tv);
             to=itemView.findViewById(R.id.to_tv);
+
         }
     }
 }
